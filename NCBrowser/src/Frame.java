@@ -6,19 +6,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.awt.Dimension;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JTextPane;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
-import javax.swing.JTree;
 
 
-public class Frame extends JFrame {
+@SuppressWarnings("serial")
+public class Frame extends JFrame
+		implements ActionListener {
 
 	private JPanel contentPane;
+	JFileChooser chooser;
+	String choosertitle;
 
 	/**
 	 * Launch the application.
@@ -28,14 +32,23 @@ public class Frame extends JFrame {
 			public void run() {
 				try {
 					Frame frame = new Frame();
-					frame.setVisible(true);
+				    frame.addWindowListener(
+				      new WindowAdapter() {
+				        public void windowClosing(WindowEvent e) {
+				          System.exit(0);
+				          }
+				        }
+				      );
+				    //frame.getContentPane().add(contentPane,"Center");
+				    //frame.setSize(contentPane.getPreferredSize());
+					frame.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -53,6 +66,7 @@ public class Frame extends JFrame {
 		menuBar.add(mnSoubor);
 		
 		JMenuItem mntmOtevt = new JMenuItem("Otev\u0159\u00EDt");
+		mntmOtevt.addActionListener(this);
 		mnSoubor.add(mntmOtevt);
 		
 		JMenuItem mntmNastaven = new JMenuItem("Nastaven\u00ED");
@@ -70,6 +84,28 @@ public class Frame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	    chooser = new JFileChooser(); 
+	    chooser.setCurrentDirectory(new java.io.File("."));
+	    chooser.setDialogTitle(choosertitle);
+	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	    //
+	    // disable the "All files" option.
+	    //
+	    chooser.setAcceptAllFileFilterUsed(false);
+	    //    
+	    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+	      System.out.println("getCurrentDirectory(): " 
+	         +  chooser.getCurrentDirectory());
+	      System.out.println("getSelectedFile() : " 
+	         +  chooser.getSelectedFile());
+	      }
+	    else {
+	      System.out.println("No Selection ");
+	      }		
 	}
 
 }
