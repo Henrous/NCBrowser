@@ -12,6 +12,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
+import javax.swing.JMenu;
+import javax.swing.JTree;
 
 
 public class Frame extends JFrame {
@@ -44,20 +46,30 @@ public class Frame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenuItem mntmSoubory = new JMenuItem("Soubory");
-		mntmSoubory.setBorder(UIManager.getBorder("Menu.border"));
-		mntmSoubory.setPreferredSize(new Dimension(66, 22));
-		menuBar.add(mntmSoubory);
+		JMenu menu = new JMenu("");
+		menuBar.add(menu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		menuBar.add(mntmNewMenuItem);
+		JMenu mnSoubor = new JMenu("Soubor");
+		menuBar.add(mnSoubor);
+		
+		JMenuItem mntmOtevt = new JMenuItem("Otev\u0159\u00EDt");
+		mnSoubor.add(mntmOtevt);
+		
+		JMenuItem mntmNastaven = new JMenuItem("Nastaven\u00ED");
+		mnSoubor.add(mntmNastaven);
+		
+		JMenuItem mntmUkonit = new JMenuItem("Ukon\u010Dit");
+		mnSoubor.add(mntmUkonit);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
+		
+		JMenuItem mntmOProgramu = new JMenuItem("O Programu");
+		mnAbout.add(mntmOProgramu);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		JTextPane textPane = new JTextPane();
-		contentPane.add(textPane, BorderLayout.CENTER);
 	}
 
 }
